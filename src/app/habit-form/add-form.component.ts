@@ -41,6 +41,6 @@ export class AddFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submit.emit();
+    this.submit.emit(this.habitForm.value);
   }
 }
