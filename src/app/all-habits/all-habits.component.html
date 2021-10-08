@@ -2,7 +2,8 @@
   <h1>Все привычки</h1>
   <button mat-raised-button
           color="accent"
-          (click)="addButtonClick()">
+          (click)="addButtonClick()"
+          routerLink="/habit-form">
     Добавить новую привычку
   </button>
   <div *ngFor="let habit of habits; let i = index">
@@ -18,7 +19,8 @@
       <div class="detail-options">
         <mat-icon class="habit-icon"
                   color="primary"
-                  (click)="editButtonClick(i)">edit
+                  (click)="editButtonClick(i)"
+                  [routerLink]="['/habit-form', i]">edit
         </mat-icon>
         <mat-icon class="habit-icon"
                   color="warn"

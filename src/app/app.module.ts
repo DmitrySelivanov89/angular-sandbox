@@ -9,7 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AddFormComponent } from './habit-form/add-form.component';
+import { HabitFormComponent } from './habit-form/habit-form.component';
 import { AllHabitsComponent } from './all-habits/all-habits.component';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,7 +20,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
   declarations: [
     AppComponent,
     AllHabitsComponent,
-    AddFormComponent,
+    HabitFormComponent,
     ToolbarComponent,
   ],
   imports: [
