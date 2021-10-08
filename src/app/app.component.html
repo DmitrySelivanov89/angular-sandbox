@@ -1,11 +1,3 @@
-<!--<div class="toolbar-container">
-  <mat-toolbar class="toolbar"
-               color="primary">
-    <mat-icon aria-hidden="false"
-              aria-label="check mark icon">fact_check</mat-icon>
-    <h1>Трекер привычек</h1>
-  </mat-toolbar>
-</div>-->
 <app-toolbar></app-toolbar>
 
 <app-all-habits (edit)="setEditForm($event)"
@@ -51,6 +43,7 @@
 </div> -->
 <app-add-form [habit]="editingHabit"
               (submit)="onSubmit($event)"
+              (exit)="exitForm()"
               [adding]="adding"
               *ngIf="adding || editing"></app-add-form>
 <!-- <div class="add-form-container" *ngIf="adding || editing">

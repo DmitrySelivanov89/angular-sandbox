@@ -28,8 +28,8 @@ export class AppComponent implements OnInit {
 
   public setEditForm(index: number) {
     const habit = this.habits[index];
-    this.editingHabit = habit;
 
+    this.editingHabit = habit;
     this.editing = true;
     this.editingIndex = index;
   }
