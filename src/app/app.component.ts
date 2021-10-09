@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { Habit } from './models/habit';
 
 @Component({
@@ -26,13 +25,13 @@ export class AppComponent implements OnInit {
     this.exitForm();
   }
 
-  public setEditForm(index: number) {
+  /*public setEditForm(index: number) {
     const habit = this.habits[index];
 
     this.editingHabit = habit;
     this.editing = true;
     this.editingIndex = index;
-  }
+  }*/
 
   exitForm() {
     this.adding = false;

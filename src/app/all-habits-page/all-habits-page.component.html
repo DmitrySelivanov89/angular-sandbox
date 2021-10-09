@@ -1,0 +1,10 @@
+<app-all-habits
+  [habits]="habits"
+  (add)="addHabit()"
+  (edit)="editHabit($event)"
+  (delete)="deleteHabit($event)"
+></app-all-habits>
+<!--<app-all-habits (edit)="setEditForm($event)"-->
+<!--                [habits]="habits"-->
+<!--                (add)="adding = !adding"-->
+<!--&gt;</app-all-habits>-->

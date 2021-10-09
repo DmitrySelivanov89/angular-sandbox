@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Habit } from '../models/habit';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Habit} from '../models/habit';
 
 @Component({
   selector: 'app-all-habits',
@@ -7,18 +7,19 @@ import { Habit } from '../models/habit';
   styleUrls: ['./all-habits.component.scss'],
 })
 export class AllHabitsComponent implements OnInit {
-  @Input()
-  habits: Habit[] = [];
+  @Input() habits: Habit[] = [];
 
-  @Output()
-  add = new EventEmitter<void>();
+  @Output() add = new EventEmitter<void>();
 
-  @Output()
-  edit = new EventEmitter<number>();
+  @Output() edit = new EventEmitter<number>();
 
-  constructor() {}
+  @Output() delete = new EventEmitter<number>();
 
-  ngOnInit(): void {}
+  constructor() {
+  }
+
+  ngOnInit(): void {
+  }
 
   addButtonClick() {
     this.add.emit();
@@ -28,7 +29,7 @@ export class AllHabitsComponent implements OnInit {
     this.edit.emit(i);
   }
 
-  public onDelete(index: number) {
-    this.habits.splice(index, 1);
+  onDelete(index: number) {
+    this.delete.emit(index);
   }
 }

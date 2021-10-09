@@ -1,6 +1,6 @@
-import {Habit} from '../models/habit';
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import { Habit } from '../models/habit';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-add-form',
@@ -13,18 +13,13 @@ export class HabitFormComponent implements OnInit {
     frequency: new FormControl(''),
     description: new FormControl(''),
   });
-  @Input()
-  adding: boolean = false;
-  @Output()
-  submit = new EventEmitter<Habit>();
-  @Output()
-  exit = new EventEmitter<void>();
+  @Input() adding: boolean = false;
+  @Output() submit = new EventEmitter<Habit>();
+  @Output() exit = new EventEmitter<void>();
 
-  constructor() {
-  }
+  constructor() {}
 
-  @Input()
-  set habit(value: Habit | undefined) {
+  @Input() set habit(value: Habit | undefined) {
     if (!value) {
       this.habitForm.reset();
     } else {
@@ -32,8 +27,7 @@ export class HabitFormComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   exitForm() {
     this.exit.emit();
