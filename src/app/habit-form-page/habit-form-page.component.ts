@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {HabitService} from "../_services/habit.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Habit} from "../models/habit";
+import {map, switchMap, tap} from "rxjs/operators";
+import {from, of} from "rxjs";
 
 @Component({
   selector: 'app-habit-form-page',
@@ -9,14 +11,15 @@ import {Habit} from "../models/habit";
   styleUrls: ['./habit-form-page.component.scss']
 })
 export class HabitFormPageComponent implements OnInit {
+  habit: Habit | undefined = undefined;
   private editing = false;
   private editingIndex: number = 0;
 
-  constructor(private habitService: HabitService, private router: Router) {
+  constructor(private habitService: HabitService, private router: Router, private route: ActivatedRoute) {
+    this.init();
   }
 
-  async ngOnInit() {
-    // this.habits = await this.habitService.getAll();
+  ngOnInit() {
   }
 
   async exitForm() {
@@ -28,13 +31,35 @@ export class HabitFormPageComponent implements OnInit {
       await this.habitService.update(this.editingIndex, habit);
     } else {
       await this.habitService.create(habit);
-
-      // this.habits.push(habit);
     }
     await this.closeForm();
   }
 
   async closeForm() {
     await this.router.navigate([''])
+  }
+
+  private init() {
+    this.route.params.pipe(
+      map(params => {
+        // проверить есть параметре params поле id
+        if (params.id) {
+          // если есть, то превратить в число
+          return parseInt(params.id);
+          // eсли нет,то возвращаем null
+        } else {
+          return null;
+        }
+      }),
+      switchMap(i => {
+        if (i != null) {
+          return from(this.habitService.getById(i));
+        }
+        return of(undefined)
+      }),
+      tap(habit => {
+        this.habit = habit;
+      })
+    ).subscribe()
   }
 }

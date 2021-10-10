@@ -19,7 +19,7 @@ export class HabitFormComponent implements OnInit {
 
   constructor() {}
 
-  @Input() set habit(value: Habit | undefined) {
+  @Input() set editingHabit(value: Habit | undefined) {
     if (!value) {
       this.habitForm.reset();
     } else {

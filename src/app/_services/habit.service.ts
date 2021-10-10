@@ -5,7 +5,7 @@ import {Habit} from "../models/habit";
   providedIn: 'root'
 })
 export class HabitService {
-  habits: Habit[] = [{
+  private habits: Habit[] = [{
     name: 'Гулять в лесу',
     description: 'Полезно для разгрузки мозга',
     frequency: 'Ежедневно'
@@ -28,5 +28,9 @@ export class HabitService {
 
   async create(habit: Habit) {
     this.habits.push(habit);
+  }
+
+  async getById(i: number) {
+    return this.habits[i];
   }
 }
