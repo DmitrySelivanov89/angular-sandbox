@@ -6,9 +6,9 @@ import {Habit} from "../models/habit";
 })
 export class HabitService {
   habits: Habit[] = [{
-    name: 'fffff',
-    description: 'ffff',
-    frequency: 'fffff'
+    name: 'Гулять в лесу',
+    description: 'Полезно для разгрузки мозга',
+    frequency: 'Ежедневно'
   }];
 
   constructor() {
@@ -20,5 +20,13 @@ export class HabitService {
 
   async delete(id: number) {
     this.habits.splice(id, 1);
+  }
+
+  async update(editingIndex: number, habit: Habit) {
+    this.habits.splice(editingIndex, 1, habit);
+  }
+
+  async create(habit: Habit) {
+    this.habits.push(habit);
   }
 }

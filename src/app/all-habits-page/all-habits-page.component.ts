@@ -9,24 +9,24 @@ import {Router} from "@angular/router";
   styleUrls: ['./all-habits-page.component.scss']
 })
 export class AllHabitsPageComponent implements OnInit {
-  habits: Habit[] = []
+  habits: Habit[] = [];
 
   constructor(private habitService: HabitService, private router: Router) {
   }
 
   async ngOnInit() {
-  this.habits = await this.habitService.getAll();
+    this.habits = await this.habitService.getAll();
   }
 
- async addHabit() {
- await this.router.navigate(['habit-form'])
+  async addHabit() {
+    await this.router.navigate(['habit-form'])
   }
 
- async editHabit(id: number) {
+  async editHabit(id: number) {
     await this.router.navigate(['habit-form', id])
   }
 
- async deleteHabit(id: number) {
-   await this.habitService.delete(id)
+  async deleteHabit(id: number) {
+    await this.habitService.delete(id)
   }
 }

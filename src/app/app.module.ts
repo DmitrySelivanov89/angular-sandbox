@@ -15,7 +15,8 @@ import {AllHabitsComponent} from './all-habits/all-habits.component';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ToolbarComponent} from './toolbar/toolbar.component';
-import { AllHabitsPageComponent } from './all-habits-page/all-habits-page.component';
+import {AllHabitsPageComponent} from './all-habits-page/all-habits-page.component';
+import {HabitFormPageComponent} from './habit-form-page/habit-form-page.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AllHabitsPageComponent } from './all-habits-page/all-habits-page.compon
     HabitFormComponent,
     ToolbarComponent,
     AllHabitsPageComponent,
+    HabitFormPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,9 @@
-import { Habit } from '../models/habit';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import {Habit} from '../models/habit';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
-  selector: 'app-add-form',
+  selector: 'app-habit-form',
   templateUrl: './habit-form.component.html',
   styleUrls: ['./habit-form.component.scss'],
 })
