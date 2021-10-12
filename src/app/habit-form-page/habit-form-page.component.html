@@ -1,9 +1,9 @@
 <app-habit-form
   (exit)="exitForm()"
   (submit)="submitForm($event)"
-  [editingHabit]="habit">
-
-</app-habit-form>
+  [adding]="!editing"
+  [editingHabit]="habit"
+></app-habit-form>
 
 <!--<app-habit-form
   [habit]="editingHabit"

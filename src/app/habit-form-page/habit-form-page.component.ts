@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {HabitService} from "../_services/habit.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Habit} from "../models/habit";
-import {map, switchMap, tap} from "rxjs/operators";
-import {from, of} from "rxjs";
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { from, of } from 'rxjs'
+import { map, switchMap, tap } from 'rxjs/operators'
+import { HabitService } from '../_services/habit.service'
+import { Habit } from '../models/habit'
 
 @Component({
   selector: 'app-habit-form-page',
@@ -11,12 +11,12 @@ import {from, of} from "rxjs";
   styleUrls: ['./habit-form-page.component.scss']
 })
 export class HabitFormPageComponent implements OnInit {
-  habit: Habit | undefined = undefined;
-  private editing = false;
-  private editingIndex: number = 0;
+  habit: Habit | undefined = undefined
+  editing: boolean = false
+  private editingIndex: number = 0
 
   constructor(private habitService: HabitService, private router: Router, private route: ActivatedRoute) {
-    this.init();
+    this.init()
   }
 
   ngOnInit() {
@@ -28,11 +28,15 @@ export class HabitFormPageComponent implements OnInit {
 
   async submitForm(habit: Habit) {
     if (this.editing) {
-      await this.habitService.update(this.editingIndex, habit);
+      console.log('edt')
+      console.log(this.editing)
+      await this.habitService.update(this.editingIndex, habit)
     } else {
-      await this.habitService.create(habit);
+      console.log('crt')
+      console.log(this.editing)
+      await this.habitService.create(habit)
     }
-    await this.closeForm();
+    await this.closeForm()
   }
 
   async closeForm() {
@@ -43,22 +47,24 @@ export class HabitFormPageComponent implements OnInit {
     this.route.params.pipe(
       map(params => {
         // проверить есть параметре params поле id
+        // return params.id ? parseInt(params.id) : null
         if (params.id) {
-          // если есть, то превратить в число
-          return parseInt(params.id);
-          // eсли нет,то возвращаем null
+          this.editing = true
+          return parseInt(params.id)
         } else {
-          return null;
+          this.editing = false
+          return null
         }
       }),
       switchMap(i => {
+        // return i != null ? from(this.habitService.getById(i)) : of(undefined)
         if (i != null) {
-          return from(this.habitService.getById(i));
+          return from(this.habitService.getById(i))
         }
         return of(undefined)
       }),
       tap(habit => {
-        this.habit = habit;
+        this.habit = habit
       })
     ).subscribe()
   }

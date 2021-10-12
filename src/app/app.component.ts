@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Habit} from './models/habit';
+import { Component, OnInit } from '@angular/core'
+
+// import {Habit} from './models/habit';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +8,12 @@ import {Habit} from './models/habit';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title: string = 'Трекер привычек';
-  habits: Habit[] = [];
-  public adding = false;
-  public editing = false;
-  editingIndex: number = 0;
-  editingHabit?: Habit = undefined;
+  title: string = 'Трекер привычек'
+  // habits: Habit[] = [];
+  // public adding = false;
+  // public editing = false;
+  // editingIndex: number = 0;
+  // editingHabit?: Habit = undefined;
 
   ngOnInit(): void {
   }
@@ -34,8 +35,8 @@ export class AppComponent implements OnInit {
   //   this.editingIndex = index;
   // }
 
-  exitForm() {
-    this.adding = false;
-    this.editing = false;
-  }
+  // exitForm() {
+  //   this.adding = false;
+  //   this.editing = false;
+  // }
 }
