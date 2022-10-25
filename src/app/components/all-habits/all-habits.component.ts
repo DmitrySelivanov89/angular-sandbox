@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Habit} from '../models/habit';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Habit } from '../../models/habit';
 
 @Component({
   selector: 'app-all-habits',
   templateUrl: './all-habits.component.html',
   styleUrls: ['./all-habits.component.scss'],
 })
-export class AllHabitsComponent implements OnInit {
+export class AllHabitsComponent {
   @Input() habits: Habit[] = [];
 
   @Output() add = new EventEmitter<void>();
@@ -14,12 +14,6 @@ export class AllHabitsComponent implements OnInit {
   @Output() edit = new EventEmitter<number>();
 
   @Output() delete = new EventEmitter<number>();
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   addButtonClick() {
     this.add.emit();

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core';
 
 // import {Habit} from './models/habit';
 
@@ -7,16 +7,13 @@ import { Component, OnInit } from '@angular/core'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  title: string = 'Трекер привычек'
+export class AppComponent {
+  title: string = 'Трекер привычек';
   // habits: Habit[] = [];
   // public adding = false;
   // public editing = false;
   // editingIndex: number = 0;
   // editingHabit?: Habit = undefined;
-
-  ngOnInit(): void {
-  }
 
   // public onSubmit(habit: Habit) {
   //   if (this.editing) {
