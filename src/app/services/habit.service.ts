@@ -1,10 +1,21 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Habit } from '../models/habit';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HabitService {
+  private readonly habitsSubject = new BehaviorSubject<Habit[]>([
+    {
+      name: 'Гулять в лесу',
+      description: 'Полезно для разгрузки мозга',
+      frequency: 'Ежедневно',
+    },
+  ]);
+
+  readonly habits$ = this.habitsSubject.asObservable();
+
   private habits: Habit[] = [
     {
       name: 'Гулять в лесу',
@@ -12,10 +23,6 @@ export class HabitService {
       frequency: 'Ежедневно',
     },
   ];
-
-  getAll() {
-    return this.habits;
-  }
 
   delete(id: number) {
     this.habits.splice(id, 1);

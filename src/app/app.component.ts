@@ -1,39 +1,14 @@
 import { Component } from '@angular/core';
-
-// import {Habit} from './models/habit';
+import { RouterOutlet } from '@angular/router';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  template: `
+    <app-toolbar />
+    <router-outlet />
+  `,
+  standalone: true,
+  imports: [ToolbarComponent, RouterOutlet],
 })
-export class AppComponent {
-  title: string = 'Трекер привычек';
-  // habits: Habit[] = [];
-  // public adding = false;
-  // public editing = false;
-  // editingIndex: number = 0;
-  // editingHabit?: Habit = undefined;
-
-  // public onSubmit(habit: Habit) {
-  //   if (this.editing) {
-  //     this.habits.splice(this.editingIndex, 1, habit);
-  //   } else {
-  //     this.habits.push(habit);
-  //   }
-  //   this.exitForm();
-  // }
-
-  // public setEditForm(index: number) {
-  //   const habit = this.habits[index];
-  //
-  //   this.editingHabit = habit;
-  //   this.editing = true;
-  //   this.editingIndex = index;
-  // }
-
-  // exitForm() {
-  //   this.adding = false;
-  //   this.editing = false;
-  // }
-}
+export class AppComponent {}

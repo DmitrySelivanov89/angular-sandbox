@@ -1,7 +1,5 @@
-export class Habit {
-  constructor(
-    public name: string,
-    public frequency: string,
-    public description: string
-  ) {}
+export interface Habit {
+  name: string;
+  frequency: string;
+  description: string;
 }

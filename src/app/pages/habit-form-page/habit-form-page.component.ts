@@ -4,21 +4,31 @@ import { EMPTY, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { Habit } from '../../models/habit';
 import { HabitService } from '../../services/habit.service';
+import { HabitFormComponent } from '../../components/habit-form/habit-form.component';
 
 @Component({
   selector: 'app-habit-form-page',
-  templateUrl: './habit-form-page.component.html',
-  styleUrls: ['./habit-form-page.component.scss'],
+  template: `
+    <app-habit-form
+      (exit)="exitForm()"
+      (emitSubmit)="submitForm($event)"
+      [adding]="!editing"
+      [editingHabit]="habit"
+    ></app-habit-form>
+  `,
+  standalone: true,
+  imports: [HabitFormComponent],
 })
 export class HabitFormPageComponent implements OnInit {
-  habit!: Habit;
-  editing: boolean = false;
-
-  private editingIndex: number = 0;
-
   private habitService = inject(HabitService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+
+  private editingIndex = 0;
+
+  habit!: Habit;
+
+  editing = false;
 
   ngOnInit() {
     this.init();
@@ -54,11 +64,11 @@ export class HabitFormPageComponent implements OnInit {
           }
         }),
         switchMap((i) =>
-          i != null ? of(this.habitService.getById(i)) : EMPTY
+          i != null ? of(this.habitService.getById(i)) : EMPTY,
         ),
         tap((habit) => {
           this.habit = habit;
-        })
+        }),
       )
       .subscribe();
   }

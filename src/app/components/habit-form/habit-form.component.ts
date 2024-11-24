@@ -1,35 +1,59 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Habit } from '../../models/habit';
+import { NgFor } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-habit-form',
   templateUrl: './habit-form.component.html',
   styleUrls: ['./habit-form.component.scss'],
+  standalone: true,
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgFor,
+    MatInputModule,
+    MatCardModule,
+    MatSelectModule,
+    MatButtonModule,
+  ],
 })
 export class HabitFormComponent {
-  @Input() placeholder = '';
-
-  habitForm = new UntypedFormGroup({
-    name: new UntypedFormControl(''),
-    frequency: new UntypedFormControl(''),
-    description: new UntypedFormControl(''),
+  readonly habitForm: FormGroup<{
+    name: FormControl<string | null>;
+    description: FormControl<string | null>;
+    frequency: FormControl<string | null>;
+  }> = new FormGroup({
+    name: new FormControl(''),
+    frequency: new FormControl(''),
+    description: new FormControl(''),
   });
 
-  options = [
+  readonly options: ReadonlyArray<{ value: string }> = [
     { value: 'Ежедневно' },
     { value: 'Еженедельно' },
     { value: 'Ежемесячно' },
     { value: 'Ежегодно' },
   ];
 
-  @Input() adding: boolean = false;
+  @Input() placeholder = '';
 
-  @Output() submit = new EventEmitter<Habit>();
+  @Input() adding = false;
 
-  @Output() exit = new EventEmitter<void>();
+  @Output() readonly emitSubmit = new EventEmitter<Habit>();
 
-  @Input() set editingHabit(value: Habit | undefined) {
+  @Output() readonly exit = new EventEmitter<void>();
+
+  @Input() set editingHabit(value: Habit) {
     if (!value) {
       this.habitForm.reset();
     } else {
@@ -42,6 +66,6 @@ export class HabitFormComponent {
   }
 
   onSubmit() {
-    this.submit.emit(this.habitForm.value);
+    this.emitSubmit.emit(this.habitForm.value as Habit);
   }
 }

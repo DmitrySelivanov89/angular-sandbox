@@ -2,8 +2,7 @@
   <mat-card>
     <mat-card-title>
       {{ adding ? "Добавить новую" : "Редактировать" }} Привычку
-    </mat-card-title
-    >
+    </mat-card-title>
     <hr/>
     <form [formGroup]="habitForm" (ngSubmit)="onSubmit()">
       <mat-card-content>
@@ -19,7 +18,7 @@
 
           <mat-select formControlName="frequency">
             <mat-option [value]="option.value" *ngFor="let option of options">
-              {{option.value}}
+              {{ option.value }}
             </mat-option>
           </mat-select>
         </mat-form-field>
