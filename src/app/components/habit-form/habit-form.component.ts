@@ -26,6 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatButtonModule,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HabitFormComponent {
   readonly habitForm: FormGroup<{
@@ -45,15 +46,19 @@ export class HabitFormComponent {
     { value: 'Ежегодно' },
   ];
 
-  @Input() placeholder = '';
+  @Input()
+  placeholder = '';
 
   @Input() adding = false;
 
-  @Output() readonly emitSubmit = new EventEmitter<Habit>();
+  @Output()
+  readonly emitSubmit = new EventEmitter<Habit>();
 
-  @Output() readonly exit = new EventEmitter<void>();
+  @Output()
+  readonly exit = new EventEmitter<void>();
 
-  @Input() set editingHabit(value: Habit) {
+  @Input()
+  set editingHabit(value: Habit) {
     if (!value) {
       this.habitForm.reset();
     } else {

@@ -8,6 +8,7 @@ import { Habit } from '../models/habit';
 export class HabitService {
   private readonly habitsSubject = new BehaviorSubject<Habit[]>([
     {
+      id: crypto.randomUUID(),
       name: 'Гулять в лесу',
       description: 'Полезно для разгрузки мозга',
       frequency: 'Ежедневно',
@@ -18,6 +19,7 @@ export class HabitService {
 
   private habits: Habit[] = [
     {
+      id: crypto.randomUUID(),
       name: 'Гулять в лесу',
       description: 'Полезно для разгрузки мозга',
       frequency: 'Ежедневно',
@@ -25,7 +27,7 @@ export class HabitService {
   ];
 
   delete(id: number) {
-    this.habits.splice(id, 1);
+    this.habits.slice(id, 1);
   }
 
   update(editingIndex: number, habit: Habit) {

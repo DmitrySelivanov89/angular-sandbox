@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
@@ -10,5 +10,6 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
   `,
   standalone: true,
   imports: [ToolbarComponent, RouterOutlet],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {}

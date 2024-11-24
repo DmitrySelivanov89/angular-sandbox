@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { Habit } from '../../models/habit';
 import { MatIconModule } from '@angular/material/icon';
 import { NgFor } from '@angular/common';
@@ -11,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./all-habits.component.scss'],
   standalone: true,
   imports: [NgFor, MatIconModule, MatCardModule, MatButtonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AllHabitsComponent {
   @Input()
