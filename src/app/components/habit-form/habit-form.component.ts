@@ -12,7 +12,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { NgForOf } from '@angular/common';
+
+interface HabitForm {
+  name: FormControl<string | null>;
+  description: FormControl<string | null>;
+  frequency: FormControl<string | null>;
+}
+
+interface Option {
+  value: string;
+  label: string;
+}
 
 @Component({
   selector: 'app-habit-form',
@@ -26,27 +36,22 @@ import { NgForOf } from '@angular/common';
     ReactiveFormsModule,
     MatSelectModule,
     MatButtonModule,
-    NgForOf,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HabitFormComponent {
-  readonly habitForm: FormGroup<{
-    name: FormControl<string | null>;
-    description: FormControl<string | null>;
-    frequency: FormControl<string | null>;
-  }> = new FormGroup({
+  readonly habitForm: FormGroup<HabitForm> = new FormGroup({
     name: new FormControl(''),
     frequency: new FormControl(''),
     description: new FormControl(''),
   });
 
-  readonly options: ReadonlyArray<{ value: string }> = [
-    { value: 'Ежедневно' },
-    { value: 'Еженедельно' },
-    { value: 'Ежемесячно' },
-    { value: 'Ежегодно' },
-  ] as const;
+  readonly options: ReadonlyArray<Option> = [
+    { label: 'Ежедневно', value: 'daily' },
+    { label: 'Еженедельно', value: 'Weekly' },
+    { label: 'Ежемесячно', value: 'Monthly' },
+    { label: 'Ежегодно', value: 'Yearly' },
+  ];
 
   @Input()
   placeholder = '';

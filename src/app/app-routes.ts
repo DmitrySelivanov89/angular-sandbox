@@ -3,7 +3,7 @@ import { AllHabitsPageComponent } from './pages/all-habits-page/all-habits-page.
 import { HabitFormPageComponent } from './pages/habit-form-page/habit-form-page.component';
 
 export const routes: Routes = [
-  { path: 'habit-form/:id', component: HabitFormPageComponent },
-  { path: 'habit-form', component: HabitFormPageComponent },
+  { path: 'edit-habit/:id', component: HabitFormPageComponent },
+  { path: 'new-habit', component: HabitFormPageComponent },
   { path: '', component: AllHabitsPageComponent },
 ];

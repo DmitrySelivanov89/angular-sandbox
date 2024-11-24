@@ -26,11 +26,11 @@ export class AllHabitsPageComponent {
   readonly habits$: Observable<Habit[]> = this.habitService.habits$;
 
   addHabit() {
-    this.router.navigate(['habit-form']);
+    this.router.navigate(['new-habit']);
   }
 
   editHabit(habit: Habit) {
-    this.router.navigate(['habit-form', habit.id]);
+    this.router.navigate(['edit-habit', habit.id]);
   }
 
   deleteHabit(habit: Habit) {

@@ -9,14 +9,13 @@ import { Habit } from '../../models/habit';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-all-habits',
   templateUrl: './all-habits.component.html',
   styleUrls: ['./all-habits.component.scss'],
   standalone: true,
-  imports: [MatIconModule, MatCardModule, MatButtonModule, NgForOf],
+  imports: [MatIconModule, MatCardModule, MatButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AllHabitsComponent {
