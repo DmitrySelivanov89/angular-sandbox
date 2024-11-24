@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-toolbar',
@@ -22,6 +22,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     `,
   ],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatToolbarModule, MatIconModule],
 })
 export class ToolbarComponent {}

@@ -5,7 +5,7 @@
     Добавить новую привычку
   </button>
 
-  <div *ngFor="let habit of habits; let i = index">
+  <div *ngFor="let habit of habits">
     <mat-card>
       <mat-card-title>
         <mat-icon
@@ -22,11 +22,11 @@
         <mat-icon
           class="habit-icon"
           color="primary"
-          (click)="editButtonClick(i)"
+          (click)="editButtonClick(habit)"
         >
           edit
         </mat-icon>
-        <mat-icon class="habit-icon" color="warn" (click)="onDelete(i)"
+        <mat-icon class="habit-icon" color="warn" (click)="onDelete(habit)"
         >remove_circle
         </mat-icon>
       </div>

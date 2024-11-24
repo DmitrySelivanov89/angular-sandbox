@@ -7,16 +7,16 @@ import {
 } from '@angular/core';
 import { Habit } from '../../models/habit';
 import { MatIconModule } from '@angular/material/icon';
-import { NgFor } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-all-habits',
   templateUrl: './all-habits.component.html',
   styleUrls: ['./all-habits.component.scss'],
   standalone: true,
-  imports: [NgFor, MatIconModule, MatCardModule, MatButtonModule],
+  imports: [MatIconModule, MatCardModule, MatButtonModule, NgForOf],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AllHabitsComponent {
@@ -27,20 +27,20 @@ export class AllHabitsComponent {
   readonly add: EventEmitter<void> = new EventEmitter<void>();
 
   @Output()
-  readonly edit: EventEmitter<number> = new EventEmitter<number>();
+  readonly edit: EventEmitter<Habit> = new EventEmitter<Habit>();
 
   @Output()
-  readonly delete: EventEmitter<number> = new EventEmitter<number>();
+  readonly delete: EventEmitter<Habit> = new EventEmitter<Habit>();
 
   addButtonClick() {
     this.add.emit();
   }
 
-  editButtonClick(i: number) {
-    this.edit.emit(i);
+  editButtonClick(habit: Habit) {
+    this.edit.emit(habit);
   }
 
-  onDelete(index: number) {
-    this.delete.emit(index);
+  onDelete(habit: Habit) {
+    this.delete.emit(habit);
   }
 }

@@ -1,16 +1,18 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Habit } from '../../models/habit';
-import { NgFor } from '@angular/common';
+import { MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-habit-form',
@@ -18,13 +20,13 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./habit-form.component.scss'],
   standalone: true,
   imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    NgFor,
+    MatOptionModule,
     MatInputModule,
     MatCardModule,
+    ReactiveFormsModule,
     MatSelectModule,
     MatButtonModule,
+    NgForOf,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -44,7 +46,7 @@ export class HabitFormComponent {
     { value: 'Еженедельно' },
     { value: 'Ежемесячно' },
     { value: 'Ежегодно' },
-  ];
+  ] as const;
 
   @Input()
   placeholder = '';

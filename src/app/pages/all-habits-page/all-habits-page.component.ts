@@ -29,11 +29,11 @@ export class AllHabitsPageComponent {
     this.router.navigate(['habit-form']);
   }
 
-  editHabit(id: number) {
-    this.router.navigate(['habit-form', id]);
+  editHabit(habit: Habit) {
+    this.router.navigate(['habit-form', habit.id]);
   }
 
-  deleteHabit(id: number) {
-    this.habitService.delete(id);
+  deleteHabit(habit: Habit) {
+    this.habitService.delete(habit);
   }
 }

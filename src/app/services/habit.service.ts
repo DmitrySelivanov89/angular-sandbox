@@ -15,30 +15,25 @@ export class HabitService {
     },
   ]);
 
+  private readonly selectedHabit = new BehaviorSubject<Habit | null>(null);
+
+  readonly selectedHabit$ = this.selectedHabit.asObservable();
+
   readonly habits$ = this.habitsSubject.asObservable();
 
-  private habits: Habit[] = [
-    {
-      id: crypto.randomUUID(),
-      name: 'Гулять в лесу',
-      description: 'Полезно для разгрузки мозга',
-      frequency: 'Ежедневно',
-    },
-  ];
-
-  delete(id: number) {
-    this.habits.slice(id, 1);
+  delete(habit: Habit) {
+    // this.habits.slice(id, 1);
   }
 
-  update(editingIndex: number, habit: Habit) {
-    this.habits.splice(editingIndex, 1, habit);
+  update(habit: Habit) {
+    // this.habits.splice(editingIndex, 1, habit);
   }
 
   create(habit: Habit) {
-    this.habits.push(habit);
+    // this.habits.push(habit);
   }
 
-  getById(i: number) {
-    return this.habits[i];
+  selectHabit(habit: Habit) {
+    this.selectedHabit.next(habit);
   }
 }
