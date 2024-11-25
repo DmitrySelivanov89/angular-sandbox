@@ -35,3 +35,7 @@ button {
   max-width: 300px;
   margin-bottom: 1em;
 }
+
+.mat-mdc-card-actions {
+  gap: 10px;
+}

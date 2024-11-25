@@ -1,9 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Input,
-  Output,
+  effect,
+  input,
+  OnInit,
+  output,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Habit } from '../../models/habit';
@@ -27,7 +28,7 @@ interface Option {
 @Component({
   selector: 'app-habit-form',
   templateUrl: './habit-form.component.html',
-  styleUrls: ['./habit-form.component.scss'],
+  styleUrls: ['./habit-form.component.css'],
   standalone: true,
   imports: [
     MatOptionModule,
@@ -39,7 +40,7 @@ interface Option {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HabitFormComponent {
+export class HabitFormComponent implements OnInit {
   readonly habitForm: FormGroup<HabitForm> = new FormGroup({
     name: new FormControl(''),
     frequency: new FormControl(''),
@@ -53,23 +54,22 @@ export class HabitFormComponent {
     { label: 'Ежегодно', value: 'Yearly' },
   ];
 
-  @Input()
-  placeholder = '';
+  readonly emitSubmit = output<Habit>();
+  readonly exit = output<void>();
 
-  @Input() adding = false;
+  habit = input<Habit | undefined>();
 
-  @Output()
-  readonly emitSubmit = new EventEmitter<Habit>();
+  constructor() {
+    effect(() => {
+      console.log(this.habit());
+    });
+  }
 
-  @Output()
-  readonly exit = new EventEmitter<void>();
-
-  @Input()
-  set editingHabit(value: Habit) {
-    if (!value) {
+  ngOnInit(): void {
+    if (!this.habit()?.id) {
       this.habitForm.reset();
     } else {
-      this.habitForm.patchValue(value);
+      this.habitForm.patchValue(this.habit() as Habit);
     }
   }
 
@@ -78,6 +78,15 @@ export class HabitFormComponent {
   }
 
   onSubmit() {
-    this.emitSubmit.emit(this.habitForm.value as Habit);
+    const { createdAt, description, frequency, name } = this.habitForm
+      .value as Habit;
+
+    this.emitSubmit.emit({
+      id: this.habit()?.id ?? '',
+      frequency,
+      name,
+      description,
+      createdAt,
+    });
   }
 }

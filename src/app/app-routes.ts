@@ -5,5 +5,6 @@ import { HabitFormPageComponent } from './pages/habit-form-page/habit-form-page.
 export const routes: Routes = [
   { path: 'edit-habit/:id', component: HabitFormPageComponent },
   { path: 'new-habit', component: HabitFormPageComponent },
-  { path: '', component: AllHabitsPageComponent },
+  { path: '', component: AllHabitsPageComponent, pathMatch: 'full' },
+  { path: '**', component: AllHabitsPageComponent },
 ];

@@ -1,9 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Input,
-  Output,
+  input,
+  output,
 } from '@angular/core';
 import { Habit } from '../../models/habit';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,23 +12,19 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-all-habits',
   templateUrl: './all-habits.component.html',
-  styleUrls: ['./all-habits.component.scss'],
+  styleUrls: ['./all-habits.component.css'],
   standalone: true,
   imports: [MatIconModule, MatCardModule, MatButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AllHabitsComponent {
-  @Input()
-  habits: Habit[] | null = [];
+  habits = input<Habit[]>();
 
-  @Output()
-  readonly add: EventEmitter<void> = new EventEmitter<void>();
+  readonly add = output<void>();
 
-  @Output()
-  readonly edit: EventEmitter<Habit> = new EventEmitter<Habit>();
+  readonly edit = output<Habit>();
 
-  @Output()
-  readonly delete: EventEmitter<Habit> = new EventEmitter<Habit>();
+  readonly delete = output<Habit>();
 
   addButtonClick() {
     this.add.emit();

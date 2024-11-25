@@ -5,38 +5,36 @@
     Добавить новую привычку
   </button>
 
-  @for (habit of habits; track habit.id) {
-    <div>
-      <mat-card>
-        <mat-card-title>
-          <mat-icon
-            class="habit-icon"
-            color="accent"
-            aria-hidden="false"
-            aria-label="circle check mark icon"
-          >
-            check_circle_outline
-          </mat-icon>
-          {{ habit.name }}
-        </mat-card-title>
-        <div class="detail-options">
-          <mat-icon
-            class="habit-icon"
-            color="primary"
-            (click)="editButtonClick(habit)"
-          >
-            edit
-          </mat-icon>
-          <mat-icon class="habit-icon" color="warn" (click)="onDelete(habit)"
-          >
-            remove_circle
-          </mat-icon>
-        </div>
-        <mat-card-content>
-          <p><span class="detail-label">Частота:</span> {{ habit.frequency }}</p>
-          <p>{{ habit.description }}</p>
-        </mat-card-content>
-      </mat-card>
-    </div>
+  @for (habit of habits(); track habit.id) {
+    <mat-card>
+      <mat-card-title>
+        <mat-icon
+          class="habit-icon"
+          color="accent"
+          aria-hidden="false"
+          aria-label="circle check mark icon"
+        >
+          check_circle_outline
+        </mat-icon>
+        {{ habit.name }}
+      </mat-card-title>
+      <div class="detail-options">
+        <mat-icon
+          class="habit-icon"
+          color="primary"
+          (click)="editButtonClick(habit)"
+        >
+          edit
+        </mat-icon>
+        <mat-icon class="habit-icon" color="warn" (click)="onDelete(habit)"
+        >
+          remove_circle
+        </mat-icon>
+      </div>
+      <mat-card-content>
+        <p><span class="detail-label">Частота:</span> {{ habit.frequency }}</p>
+        <p>{{ habit.description }}</p>
+      </mat-card-content>
+    </mat-card>
   }
 </div>

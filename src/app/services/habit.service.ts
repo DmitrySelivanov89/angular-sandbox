@@ -1,39 +1,46 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 import { Habit } from '../models/habit';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class HabitService {
-  private readonly habitsSubject = new BehaviorSubject<Habit[]>([
+  private readonly habitsSignal = signal<Habit[]>([
     {
       id: crypto.randomUUID(),
       name: 'Гулять в лесу',
       description: 'Полезно для разгрузки мозга',
-      frequency: 'Ежедневно',
+      frequency: 'daily',
+      createdAt: new Date().toISOString(),
     },
   ]);
 
-  private readonly selectedHabit = new BehaviorSubject<Habit | null>(null);
+  private readonly selectedHabitSignal = signal<Habit | undefined>(undefined);
 
-  readonly selectedHabit$ = this.selectedHabit.asObservable();
+  readonly selectedHabit = this.selectedHabitSignal.asReadonly();
 
-  readonly habits$ = this.habitsSubject.asObservable();
+  readonly habits = this.habitsSignal.asReadonly();
 
-  delete(habit: Habit) {
-    // this.habits.slice(id, 1);
+  deleteHabit(habit: Habit) {
+    this.habitsSignal.update((habits) =>
+      habits.filter((hab) => hab.id !== habit.id),
+    );
   }
 
-  update(habit: Habit) {
-    // this.habits.splice(editingIndex, 1, habit);
+  updateHabit(habit: Habit) {
+    this.habitsSignal.update((habits) =>
+      habits.map((hab) => (hab.id === habit.id ? habit : hab)),
+    );
   }
 
-  create(habit: Habit) {
-    // this.habits.push(habit);
+  createHabit(habit: Habit) {
+    const newHabit = {
+      ...habit,
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+    };
+    this.habitsSignal.update((habits) => [...habits, newHabit]);
   }
 
-  selectHabit(habit: Habit) {
-    this.selectedHabit.next(habit);
+  selectHabit(habit: Habit | undefined) {
+    this.selectedHabitSignal.set(habit);
   }
 }

@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Habit } from '../../models/habit';
 import { HabitService } from '../../services/habit.service';
 import { HabitFormComponent } from '../../components/habit-form/habit-form.component';
@@ -10,36 +10,35 @@ import { HabitFormComponent } from '../../components/habit-form/habit-form.compo
     <app-habit-form
       (exit)="exitForm()"
       (emitSubmit)="submitForm($event)"
-      [adding]="!editing"
-      [editingHabit]="habit"
+      [habit]="selectedHabit()"
     />
   `,
   standalone: true,
   imports: [HabitFormComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HabitFormPageComponent {
-  private habitService = inject(HabitService);
-  private route = inject(ActivatedRoute);
+  private readonly habitService = inject(HabitService);
   private router = inject(Router);
 
-  editing = false;
-
-  habit!: Habit;
+  readonly selectedHabit = this.habitService.selectedHabit;
 
   exitForm() {
     this.closeForm();
   }
 
   submitForm(habit: Habit) {
-    if (this.editing) {
-      this.habitService.update(habit);
+    console.log(habit);
+    if (!habit.id) {
+      this.habitService.createHabit(habit);
     } else {
-      this.habitService.create(habit);
+      this.habitService.updateHabit(habit);
     }
     this.closeForm();
   }
 
   closeForm() {
+    this.habitService.selectHabit(undefined);
     this.router.navigate(['']);
   }
 }
