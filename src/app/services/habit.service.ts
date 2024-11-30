@@ -8,7 +8,7 @@ export class HabitService {
       id: crypto.randomUUID(),
       name: 'Гулять в лесу',
       description: 'Полезно для разгрузки мозга',
-      frequency: 'daily',
+      frequency: 'Ежедневно',
       createdAt: new Date().toISOString(),
     },
   ]);
