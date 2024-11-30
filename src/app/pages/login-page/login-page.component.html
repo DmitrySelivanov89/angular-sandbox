@@ -1,0 +1,20 @@
+<form class="login-form" [formGroup]="loginForm" (ngSubmit)="login($event)">
+    <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>Введите логин</mat-label>
+    <input matInput formControlName="login"/>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Введите пароль</mat-label>
+    <input matInput formControlName="password" [type]="hide() ? 'password' : 'text'"/>
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="clickEvent($event)"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide()"
+    >
+      <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+    </button>
+  </mat-form-field>
+  <button [disabled]="loginForm.invalid" mat-raised-button color="primary" type="submit">Войти</button>
+</form>
