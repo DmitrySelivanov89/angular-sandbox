@@ -6,14 +6,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-habits-page',
-  template: `
-    <app-all-habits
-      [habits]="habits()"
-      (add)="addHabit()"
-      (edit)="editHabit($event)"
-      (delete)="deleteHabit($event)"
-    />
-  `,
+  templateUrl: 'all-habits-page.component.html',
   standalone: true,
   imports: [AllHabitsComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
