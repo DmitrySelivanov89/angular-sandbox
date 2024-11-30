@@ -14,21 +14,21 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 
-interface HabitForm {
+ interface HabitForm {
   name: FormControl<string | null>;
   description: FormControl<string | null>;
   frequency: FormControl<string | null>;
 }
 
-interface Option {
+ interface Option {
   value: string;
   label: string;
 }
 
 @Component({
   selector: 'app-habit-form',
-  templateUrl: './habit-form.component.html',
-  styleUrls: ['./habit-form.component.css'],
+  templateUrl: 'habit-form.component.html',
+  styleUrls: ['habit-form.component.css'],
   standalone: true,
   imports: [
     MatOptionModule,
@@ -48,10 +48,10 @@ export class HabitFormComponent implements OnInit {
   });
 
   readonly options: ReadonlyArray<Option> = [
-    { label: 'Ежедневно', value: 'daily' },
-    { label: 'Еженедельно', value: 'Weekly' },
-    { label: 'Ежемесячно', value: 'Monthly' },
-    { label: 'Ежегодно', value: 'Yearly' },
+    { label: 'Ежедневно', value: 'Ежедневно' },
+    { label: 'Еженедельно', value: 'Еженедельно' },
+    { label: 'Ежемесячно', value: 'Ежемесячно' },
+    { label: 'Ежегодно', value: 'Ежегодно' },
   ];
 
   readonly emitSubmit = output<Habit>();
@@ -78,15 +78,14 @@ export class HabitFormComponent implements OnInit {
   }
 
   onSubmit() {
-    const { createdAt, description, frequency, name } = this.habitForm
-      .value as Habit;
+    const { description, frequency, name } = this.habitForm.value as Habit;
 
     this.emitSubmit.emit({
       id: this.habit()?.id ?? '',
       frequency,
       name,
       description,
-      createdAt,
+      createdAt: new Date().toISOString(),
     });
   }
 }
