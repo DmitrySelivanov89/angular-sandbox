@@ -1,3 +1,12 @@
 .toolbar {
   justify-content: space-between;
 }
+
+.icon {
+  margin-right: 5px;
+}
+
+.title {
+  margin: 0 auto;
+}
+
