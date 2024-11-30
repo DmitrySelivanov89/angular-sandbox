@@ -6,13 +6,7 @@ import { HabitFormComponent } from '../../components/habit-form/habit-form.compo
 
 @Component({
   selector: 'app-habit-form-page',
-  template: `
-    <app-habit-form
-      (exit)="exitForm()"
-      (emitSubmit)="submitForm($event)"
-      [habit]="selectedHabit()"
-    />
-  `,
+  templateUrl: './habit-form-page.component.html',
   standalone: true,
   imports: [HabitFormComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,6 +33,6 @@ export class HabitFormPageComponent {
 
   closeForm() {
     this.habitService.selectHabit(undefined);
-    this.router.navigate(['']);
+    this.router.navigate(['/']);
   }
 }
