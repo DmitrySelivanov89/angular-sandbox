@@ -34,6 +34,7 @@
       <mat-card-content>
         <p><span class="detail-label">Частота:</span> {{ habit.frequency }}</p>
         <p>{{ habit.description }}</p>
+        <p> {{habit.createdAt | date : 'Дата dd MM YYYY Время: HH:mm:ss'}}</p>
       </mat-card-content>
     </mat-card>
   }
