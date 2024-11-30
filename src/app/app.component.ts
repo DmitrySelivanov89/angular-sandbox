@@ -1,15 +1,24 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <app-toolbar />
-    <router-outlet />
-  `,
+  templateUrl: './app.component.html',
   standalone: true,
   imports: [ToolbarComponent, RouterOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  private readonly authService = inject(AuthService);
+
+  ngOnInit(): void {
+    this.authService.setAuth(!!this.authService.token);
+  }
+}
