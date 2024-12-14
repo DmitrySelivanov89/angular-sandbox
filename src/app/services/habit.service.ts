@@ -19,10 +19,8 @@ export class HabitService {
 
   readonly habits = this.habitsSignal.asReadonly();
 
-  deleteHabit(habit: Habit) {
-    this.habitsSignal.update((habits) =>
-      habits.filter((hab) => hab.id !== habit.id),
-    );
+  deleteHabit(id: Habit['id']) {
+    this.habitsSignal.update((habits) => habits.filter((hab) => hab.id !== id));
   }
 
   updateHabit(habit: Habit) {

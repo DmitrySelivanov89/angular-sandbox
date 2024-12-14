@@ -19,13 +19,13 @@ import { DatePipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AllHabitsComponent {
-  habits = input<Habit[]>();
+  readonly habits = input<Habit[]>();
 
   readonly add = output<void>();
 
   readonly edit = output<Habit>();
 
-  readonly delete = output<Habit>();
+  readonly delete = output<Habit['id']>();
 
   addButtonClick() {
     this.add.emit();
@@ -35,7 +35,7 @@ export class AllHabitsComponent {
     this.edit.emit(habit);
   }
 
-  onDelete(habit: Habit) {
-    this.delete.emit(habit);
+  onDelete(id: Habit['id']) {
+    this.delete.emit(id);
   }
 }

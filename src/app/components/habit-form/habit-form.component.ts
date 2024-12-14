@@ -14,13 +14,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 
- interface HabitForm {
+interface HabitForm {
   name: FormControl<string | null>;
   description: FormControl<string | null>;
   frequency: FormControl<string | null>;
 }
 
- interface Option {
+interface Option {
   value: string;
   label: string;
 }
@@ -57,7 +57,7 @@ export class HabitFormComponent implements OnInit {
   readonly emitSubmit = output<Habit>();
   readonly exit = output<void>();
 
-  habit = input<Habit | undefined>();
+  readonly habit = input<Habit | undefined>();
 
   constructor() {
     effect(() => {

@@ -26,7 +26,7 @@ export class AllHabitsPageComponent {
     this.router.navigate(['edit-habit', habit.id]);
   }
 
-  deleteHabit(habit: Habit) {
-    this.habitService.deleteHabit(habit);
+  deleteHabit(id: Habit['id']) {
+    this.habitService.deleteHabit(id);
   }
 }
