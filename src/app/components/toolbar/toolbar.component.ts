@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { MatButton } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -17,7 +18,7 @@ import { MatButton } from '@angular/material/button';
   styleUrls: ['toolbar.component.css'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatToolbarModule, MatIconModule, DatePipe, MatButton],
+  imports: [MatToolbarModule, MatIconModule, DatePipe, MatButton, RouterLink],
 })
 export class ToolbarComponent implements OnInit {
   private readonly authService = inject(AuthService);

@@ -1,11 +1,12 @@
 @if (isLoggedIn()) {
   <mat-toolbar class="toolbar" color="primary">
-    <mat-icon class="icon" aria-hidden="false" aria-label="check mark icon"
-    >fact_check
+    <mat-icon class="icon" aria-hidden="false" aria-label="check mark icon">
+      fact_check
     </mat-icon>
-    <div class="time">{{ timeNow() | date: 'HH:mm:ss' }}</div>
+    <div appDraggable class="time">{{ timeNow() | date: 'HH:mm:ss' }}</div>
     <h1 class="title">Трекер привычек</h1>
+    <button mat-raised-button color="accent" [routerLink]="['table']">Таблица</button>
+    <button mat-raised-button color="accent" [routerLink]="['habits']">Привычки</button>
     <button class="btn" mat-raised-button color="accent" (click)="logout()">Выход</button>
   </mat-toolbar>
-
 }
