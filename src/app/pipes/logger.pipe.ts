@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class LoggerPipe implements PipeTransform {
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return console.log(value, ...args);
+  transform<T>(value: T, ...args: T[]): void {
+    console.log(value, ...args);
   }
 }
