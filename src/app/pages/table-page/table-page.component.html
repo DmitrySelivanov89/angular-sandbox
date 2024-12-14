@@ -1,0 +1,35 @@
+<!-- No templates provided, will use default layout -->
+<app-table [data]="employees()"/>
+
+<!-- Basic configured template -->
+<app-table [data]="employees()">
+  <ng-template appTableHeader>
+    <th>First</th>
+    <th>Last</th>
+  </ng-template>
+</app-table>
+
+<!-- Highly configured template with conditional elements -->
+<app-table [data]="inventory()">
+  <ng-template appTableHeader>
+    <th>Item</th>
+    <th>Price</th>
+    <th>Corp</th>
+    <th></th>
+    <th></th>
+  </ng-template>
+  <ng-template [appTableRow]="inventory()" let-row>
+    <td>{{ row.name }}</td>
+    <td>{{ row.price | currency: row.currency }}</td>
+    <td>{{ row.supplier }}</td>
+    <td>
+      @if (row.inStock > 0) {
+        <button mat-raised-button (click)="purchaseItem(row.plu)">
+          Buy now
+        </button>
+      }
+    <td>
+      <button mat-raised-button color="warn">Delete</button>
+    </td>
+  </ng-template>
+</app-table>
