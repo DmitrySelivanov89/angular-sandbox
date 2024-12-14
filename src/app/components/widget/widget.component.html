@@ -1,0 +1,19 @@
+<div class="widget">
+  <ng-container *ngTemplateOutlet="headerTemplate() || defaultHeader; context:{$implicit: 'foo'}"/>
+  <ng-container *ngTemplateOutlet="contentTemplate() || defaultContent; context:{$implicit: 'bar'}"/>
+  <ng-container *ngTemplateOutlet="actionTemplate() || defaultAction; context:{$implicit: 'baz'}"/>
+</div>
+<ng-template #defaultHeader let-foo>
+  {{ foo }}
+</ng-template>
+<ng-template #defaultContent let-bar>
+  {{ bar }}
+</ng-template>
+<ng-template #defaultAction let-baz>
+  {{ baz }}
+</ng-template>
+
+<!--<ng-container #container/>-->
+<!--<ng-template #defaultTemplate>-->
+<!--  <div>Template from imperative outlet</div>-->
+<!--</ng-template>-->
