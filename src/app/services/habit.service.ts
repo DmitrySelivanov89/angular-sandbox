@@ -13,7 +13,7 @@ export class HabitService {
     },
   ]);
 
-  private readonly selectedHabitSignal = signal<Habit | undefined>(undefined);
+  private readonly selectedHabitSignal = signal<Habit | null>(null);
 
   readonly selectedHabit = this.selectedHabitSignal.asReadonly();
 
@@ -24,21 +24,21 @@ export class HabitService {
   }
 
   updateHabit(habit: Habit) {
-    this.habitsSignal.update((habits) =>
-      habits.map((hab) => (hab.id === habit.id ? habit : hab)),
-    );
+    this.habitsSignal.update((habits) => habits.map((hab) => (hab.id === habit.id ? habit : hab)));
   }
 
   createHabit(habit: Habit) {
-    const newHabit = {
-      ...habit,
-      id: crypto.randomUUID(),
-      createdAt: new Date().toISOString(),
-    };
-    this.habitsSignal.update((habits) => [...habits, newHabit]);
+    this.habitsSignal.update((habits) => [
+      ...habits,
+      {
+        ...habit,
+        id: crypto.randomUUID(),
+        createdAt: new Date().toISOString(),
+      },
+    ]);
   }
 
-  selectHabit(habit: Habit | undefined) {
+  selectHabit(habit: Habit | null) {
     this.selectedHabitSignal.set(habit);
   }
 }

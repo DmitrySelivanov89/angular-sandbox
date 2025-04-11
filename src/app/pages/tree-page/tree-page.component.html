@@ -1,0 +1,12 @@
+<app-tree-view
+  [nodes]="treeData"
+  [nodeTemplate]="customNodeTemplate" />
+
+<ng-template
+  #customNodeTemplate
+  let-data>
+  <b>{{ data.name }}</b>
+  <em>{{ data.type }}</em>
+</ng-template>
+
+<app-tree [value]="items" />

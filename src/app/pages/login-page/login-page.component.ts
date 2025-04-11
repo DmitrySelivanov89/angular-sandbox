@@ -1,15 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  signal,
-} from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -20,16 +10,7 @@ import { MatIcon } from '@angular/material/icon';
   selector: 'app-login-page',
   templateUrl: 'login-page.component.html',
   styleUrls: ['login-page.component.css'],
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    MatButton,
-    MatFormField,
-    MatInput,
-    MatIconButton,
-    MatIcon,
-    MatLabel,
-  ],
+  imports: [ReactiveFormsModule, MatButton, MatFormField, MatInput, MatIconButton, MatIcon, MatLabel],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPageComponent {
@@ -46,8 +27,7 @@ export class LoginPageComponent {
     this.hide.set(!this.hide());
   }
 
-  login(event: unknown): void {
-    console.log(event);
+  login(): void {
     this.authService.login();
   }
 }

@@ -1,16 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  input,
-  TemplateRef,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-widget',
   templateUrl: 'widget.component.html',
   styleUrls: ['widget.component.scss'],
-  standalone: true,
   imports: [NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,25 +1,29 @@
 <table>
   <thead>
-  <tr>
-    <ng-container *ngTemplateOutlet="headers() || defaultHeaderTemplate;context: { $implicit: data() }"/>
-  </tr>
+    <tr>
+      <ng-container *ngTemplateOutlet="headers() || defaultHeaderTemplate; context: { $implicit: data() }" />
+    </tr>
   </thead>
   <tbody>
     @for (row of data(); track row) {
       <tr>
-        <ng-container *ngTemplateOutlet="rows() || defaultRowTemplate; context: { $implicit: row }"/>
+        <ng-container *ngTemplateOutlet="rows() || defaultRowTemplate; context: { $implicit: row }" />
       </tr>
     }
   </tbody>
 </table>
 
-<ng-template #defaultHeaderTemplate let-data>
+<ng-template
+  #defaultHeaderTemplate
+  let-data>
   @for (header of data[0] | keyvalue; track header.key) {
     <td>{{ header.key }}</td>
   }
 </ng-template>
 
-<ng-template #defaultRowTemplate let-row>
+<ng-template
+  #defaultRowTemplate
+  let-row>
   @for (item of row | keyvalue; track item.key) {
     <td>{{ item.value }}</td>
   }

@@ -1,10 +1,4 @@
-import {
-  DestroyRef,
-  Directive,
-  ElementRef,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { DestroyRef, Directive, ElementRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { concatMap, fromEvent, map, Observable, takeUntil } from 'rxjs';
 
@@ -15,7 +9,6 @@ interface Position {
 
 @Directive({
   selector: '[appDraggable]',
-  standalone: true,
 })
 export class DraggableDirective implements OnInit {
   private readonly el: ElementRef<HTMLDivElement> = inject(ElementRef);
@@ -26,7 +19,7 @@ export class DraggableDirective implements OnInit {
     this.drag(
       fromEvent<MouseEvent>(this.el.nativeElement, 'mousedown'),
       fromEvent<MouseEvent>(document, 'mousemove'),
-      fromEvent<MouseEvent>(document, 'mouseup'),
+      fromEvent<MouseEvent>(document, 'mouseup')
     )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((position) => {
@@ -41,7 +34,7 @@ export class DraggableDirective implements OnInit {
   private drag(
     mousedown$: Observable<MouseEvent>,
     mousemove$: Observable<MouseEvent>,
-    mouseup$: Observable<MouseEvent>,
+    mouseup$: Observable<MouseEvent>
   ): Observable<Position> {
     return mousedown$.pipe(
       concatMap((startEvent: MouseEvent) => {
@@ -53,9 +46,9 @@ export class DraggableDirective implements OnInit {
               top: moveEvent.clientY - startEvent.clientY,
             };
           }),
-          takeUntil(mouseup$),
+          takeUntil(mouseup$)
         );
-      }),
+      })
     );
   }
 }

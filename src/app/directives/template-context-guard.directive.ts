@@ -10,7 +10,6 @@ interface TableRowTemplateContext<TItem extends object> {
 
 @Directive({
   selector: 'ng-template[appTableHeader]',
-  standalone: true,
 })
 export class TableHeaderTemplateDirective<TItem extends object> {
   readonly data = input<TItem[] | '' | undefined>(undefined, {
@@ -19,7 +18,7 @@ export class TableHeaderTemplateDirective<TItem extends object> {
 
   static ngTemplateContextGuard<TContextItem extends object>(
     dir: TableHeaderTemplateDirective<TContextItem>,
-    ctx: unknown,
+    ctx: unknown
   ): ctx is TableHeaderTemplateContext<TContextItem> {
     return true;
   }
@@ -27,16 +26,15 @@ export class TableHeaderTemplateDirective<TItem extends object> {
 
 @Directive({
   selector: 'ng-template[appTableRow]',
-  standalone: true,
 })
 export class TableRowTemplateDirective<TItem extends object> {
-  readonly data = input<TItem[] | undefined>(undefined, {
+  readonly data = input<TItem[]>([], {
     alias: 'appTableRow',
   });
 
   static ngTemplateContextGuard<TContextItem extends object>(
     dir: TableRowTemplateDirective<TContextItem>,
-    ctx: unknown,
+    ctx: unknown
   ): ctx is TableRowTemplateContext<TContextItem> {
     return true;
   }

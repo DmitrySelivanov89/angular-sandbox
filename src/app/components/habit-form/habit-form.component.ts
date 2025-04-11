@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  input,
-  OnInit,
-  output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, input, OnInit, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Habit } from '../../models/habit';
 import { MatOptionModule } from '@angular/material/core';
@@ -29,15 +22,7 @@ interface Option {
   selector: 'app-habit-form',
   templateUrl: 'habit-form.component.html',
   styleUrls: ['habit-form.component.css'],
-  standalone: true,
-  imports: [
-    MatOptionModule,
-    MatInputModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatButtonModule,
-  ],
+  imports: [MatOptionModule, MatInputModule, MatCardModule, ReactiveFormsModule, MatSelectModule, MatButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HabitFormComponent implements OnInit {
@@ -57,7 +42,7 @@ export class HabitFormComponent implements OnInit {
   readonly emitSubmit = output<Habit>();
   readonly exit = output<void>();
 
-  readonly habit = input<Habit | undefined>();
+  readonly habit = input<Habit | null>(null);
 
   constructor() {
     effect(() => {

@@ -1,0 +1,32 @@
+<ul class="tree-node">
+  @for (node of nodes(); track $index) {
+    <li>
+      <div
+        class="node-container"
+        [class.expanded]="node.expanded">
+        <span
+          class="node-label"
+          (click)="toggleNode(node)">
+          <ng-container *ngTemplateOutlet="nodeTemplate() || defaultNodeTemplate; context: { $implicit: node.data }" />
+          @if (node.children && node.children.length > 0) {
+            <i
+              class="arrow"
+              [class.arrow-collapsed]="!node.expanded"
+              [class.arrow-expanded]="node.expanded"></i>
+          }
+        </span>
+      </div>
+      @if (node.expanded) {
+        <app-tree-view
+          [nodes]="node.children ?? []"
+          [nodeTemplate]="nodeTemplate()" />
+      }
+    </li>
+  }
+</ul>
+
+<ng-template
+  #defaultNodeTemplate
+  let-data>
+  {{ data }}
+</ng-template>

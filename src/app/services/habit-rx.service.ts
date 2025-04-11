@@ -17,11 +17,8 @@ export class HabitRxService {
   private readonly habitAction$ = this.habitSubject.asObservable();
 
   readonly habits$ = this.habitAction$.pipe(
-    scan(
-      (items, itemAction) => this.modifyHabits(items, itemAction),
-      [] as Habit[],
-    ),
-    shareReplay({ refCount: true, bufferSize: 1 }),
+    scan((items, itemAction) => this.modifyHabits(items, itemAction), [] as Habit[]),
+    shareReplay({ refCount: true, bufferSize: 1 })
   );
 
   addHabit(habit: Habit): void {
@@ -50,9 +47,7 @@ export class HabitRxService {
       case 'add':
         return [...habits, operation.entity];
       case 'update':
-        return habits.map((item) =>
-          item.id === operation.entity.id ? operation.entity : item,
-        );
+        return habits.map((item) => (item.id === operation.entity.id ? operation.entity : item));
       case 'delete':
         return habits.filter((item) => item.id !== operation.entity.id);
       default:

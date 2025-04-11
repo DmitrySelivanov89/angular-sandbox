@@ -1,0 +1,30 @@
+:host {
+  display: block;
+  position: relative;
+
+  &._array {
+    padding-left: 29px;
+    margin-top: 10px;
+
+    &:not(:last-child):not(:first-of-type)::before {
+      content: '';
+      position: absolute;
+      top: -1.2em;
+      left: -20px;
+      width: 10px;
+      bottom: 0.6em;
+      border-left: 1px dotted;
+    }
+  }
+
+  &:not(._array)::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    width: 10px;
+    bottom: 0.6em;
+    height: 1.1em;
+    border-left: 1px dotted;
+    border-bottom: 1px dotted;
+  }
+}

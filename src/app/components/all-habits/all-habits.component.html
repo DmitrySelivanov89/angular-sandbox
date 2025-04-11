@@ -1,7 +1,10 @@
 <div class="all-habits">
   <h1>Все привычки</h1>
 
-  <button mat-raised-button color="accent" (click)="addButtonClick()">
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="addButtonClick()">
     Добавить новую привычку
   </button>
 
@@ -12,8 +15,7 @@
           class="habit-icon"
           color="accent"
           aria-hidden="false"
-          aria-label="circle check mark icon"
-        >
+          aria-label="circle check mark icon">
           check_circle_outline
         </mat-icon>
         {{ habit.name }}
@@ -22,19 +24,20 @@
         <mat-icon
           class="habit-icon"
           color="primary"
-          (click)="editButtonClick(habit)"
-        >
+          (click)="editButtonClick(habit)">
           edit
         </mat-icon>
-        <mat-icon class="habit-icon" color="warn" (click)="onDelete(habit.id)"
-        >
+        <mat-icon
+          class="habit-icon"
+          color="warn"
+          (click)="onDelete(habit.id)">
           remove_circle
         </mat-icon>
       </div>
       <mat-card-content>
         <p><span class="detail-label">Частота:</span> {{ habit.frequency }}</p>
         <p>{{ habit.description }}</p>
-        <p> {{ habit.createdAt | date : 'Дата dd MM YYYY Время: HH:mm:ss' }}</p>
+        <p>{{ habit.createdAt | date: 'Дата dd MM YYYY Время: HH:mm:ss' }}</p>
       </mat-card-content>
     </mat-card>
   }

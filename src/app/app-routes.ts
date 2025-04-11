@@ -1,33 +1,43 @@
 import { Routes } from '@angular/router';
-import { HabitFormPageComponent } from './pages/habit-form-page/habit-form-page.component';
 import { authGuard } from './guards/auth-guard';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { AllHabitsPageComponent } from './pages/all-habits-page/all-habits-page.component';
-import { PageNotFoundPageComponent } from './pages/page-not-found/page-not-found.component';
-import { TablePageComponent } from './pages/table-page/table-page.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginPageComponent },
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login-page/login-page.component').then((m) => m.LoginPageComponent),
+  },
   {
     path: 'habits',
     canActivate: [authGuard],
-    component: AllHabitsPageComponent,
+    loadComponent: () =>
+      import('./pages/all-habits-page/all-habits-page.component').then((m) => m.AllHabitsPageComponent),
   },
   {
     path: 'edit-habit/:id',
     canActivate: [authGuard],
-    component: HabitFormPageComponent,
+    loadComponent: () =>
+      import('./pages/habit-form-page/habit-form-page.component').then((m) => m.HabitFormPageComponent),
   },
   {
     path: 'new-habit',
     canActivate: [authGuard],
-    component: HabitFormPageComponent,
+    loadComponent: () =>
+      import('./pages/habit-form-page/habit-form-page.component').then((m) => m.HabitFormPageComponent),
   },
   {
     path: 'table',
     canActivate: [authGuard],
-    component: TablePageComponent,
+    loadComponent: () => import('./pages/table-page/table-page.component').then((m) => m.TablePageComponent),
+  },
+  {
+    path: 'tree',
+    canActivate: [authGuard],
+    loadComponent: () => import('./pages/tree-page/tree-page.component').then((m) => m.TreePageComponent),
   },
   { path: '', redirectTo: 'habits', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundPageComponent },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./pages/page-not-found/page-not-found.component').then((m) => m.PageNotFoundPageComponent),
+  },
 ];

@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  input,
-  output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { Habit } from '../../models/habit';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -14,7 +9,6 @@ import { DatePipe } from '@angular/common';
   selector: 'app-all-habits',
   templateUrl: 'all-habits.component.html',
   styleUrls: ['all-habits.component.css'],
-  standalone: true,
   imports: [MatIconModule, MatCardModule, MatButtonModule, DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

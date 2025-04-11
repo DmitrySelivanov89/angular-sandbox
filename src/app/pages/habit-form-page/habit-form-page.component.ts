@@ -7,7 +7,6 @@ import { HabitFormComponent } from '../../components/habit-form/habit-form.compo
 @Component({
   selector: 'app-habit-form-page',
   templateUrl: './habit-form-page.component.html',
-  standalone: true,
   imports: [HabitFormComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -22,7 +21,6 @@ export class HabitFormPageComponent {
   }
 
   submitForm(habit: Habit) {
-    console.log(habit);
     if (!habit.id) {
       this.habitService.createHabit(habit);
     } else {
@@ -32,7 +30,7 @@ export class HabitFormPageComponent {
   }
 
   closeForm() {
-    this.habitService.selectHabit(undefined);
+    this.habitService.selectHabit(null);
     this.router.navigate(['/']);
   }
 }
