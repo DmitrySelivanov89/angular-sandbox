@@ -27,104 +27,101 @@ const initialState: UsersState = {
 export const UserStore = signalStore(
   withState<UsersState>(initialState),
   withMethods(
-    (store, userService = inject(UserService), snackBar = inject(MatSnackBar), dialog = inject(MatDialog)) => {
-      return {
-        loadUsers: rxMethod<void>(
-          pipe(
-            tap(() => patchState(store, { loading: true, error: undefined })),
-            switchMap(() => {
-              return userService.getUsers().pipe(
-                tapResponse({
-                  next: (users) => patchState(store, { users, loading: false }),
-                  error: (error: HttpErrorResponse) => patchState(store, { error: error.message, loading: false }),
+    (store, userService = inject(UserService), snackBar = inject(MatSnackBar), dialog = inject(MatDialog)) => ({
+      loadUsers: rxMethod<void>(
+        pipe(
+          tap(() => patchState(store, { loading: true, error: undefined })),
+          switchMap(() => {
+            return userService.getUsers().pipe(
+              tapResponse({
+                next: (users) => patchState(store, { users, loading: false }),
+                error: (error: HttpErrorResponse) => patchState(store, { error: error.message, loading: false }),
+              })
+            );
+          })
+        )
+      ),
+      loadUser: rxMethod<number>(
+        pipe(
+          tap(() => patchState(store, { loading: true, error: undefined })),
+          switchMap((id) => {
+            return userService.getUser(id).pipe(
+              tapResponse({
+                next: (selectedUser) => patchState(store, { selectedUser, loading: false }),
+                error: (error: HttpErrorResponse) => patchState(store, { error: error.message, loading: false }),
+              })
+            );
+          })
+        )
+      ),
+      createUser: rxMethod<Omit<User, 'id'>>(
+        pipe(
+          tap(() => patchState(store, { loading: true, error: undefined })),
+          exhaustMap((post) => {
+            return userService.createUser(post).pipe(
+              tapResponse({
+                next: (createdPost) => {
+                  patchState(store, {
+                    users: [...store.users(), createdPost],
+                    loading: false,
+                  });
+                },
+                error: (error: HttpErrorResponse) => patchState(store, { error: error.message, loading: false }),
+              })
+            );
+          })
+        )
+      ),
+      updateUser: rxMethod<User>(
+        pipe(
+          switchMap((user) => {
+            return dialog
+              .open(UserCardComponent, {
+                data: { user } as UserCardDialogData,
+              })
+              .afterClosed()
+              .pipe(
+                filter(Boolean),
+                mergeMap((post) => {
+                  return userService.updateUser(post).pipe(
+                    tapResponse({
+                      next: (updatedUser) => {
+                        patchState(store, {
+                          users: store.users().map((u) => (u.id === updatedUser.id ? updatedUser : u)),
+                          loading: false,
+                        });
+                        snackBar.open('User successfully updated!');
+                      },
+                      error: (error: HttpErrorResponse) => patchState(store, { error: error.message, loading: false }),
+                    })
+                  );
                 })
               );
-            })
-          )
-        ),
-        loadUser: rxMethod<number>(
-          pipe(
-            tap(() => patchState(store, { loading: true, error: undefined })),
-            switchMap((id) => {
-              return userService.getUser(id).pipe(
-                tapResponse({
-                  next: (selectedUser) => patchState(store, { selectedUser, loading: false }),
-                  error: (error: HttpErrorResponse) => patchState(store, { error: error.message, loading: false }),
-                })
-              );
-            })
-          )
-        ),
-        createUser: rxMethod<Omit<User, 'id'>>(
-          pipe(
-            tap(() => patchState(store, { loading: true, error: undefined })),
-            exhaustMap((post) => {
-              return userService.createUser(post).pipe(
-                tapResponse({
-                  next: (createdPost) => {
-                    patchState(store, {
-                      users: [...store.users(), createdPost],
-                      loading: false,
-                    });
-                  },
-                  error: (error: HttpErrorResponse) => patchState(store, { error: error.message, loading: false }),
-                })
-              );
-            })
-          )
-        ),
-        updateUser: rxMethod<User>(
-          pipe(
-            switchMap((user) => {
-              return dialog
-                .open(UserCardComponent, {
-                  data: { user } as UserCardDialogData,
-                })
-                .afterClosed()
-                .pipe(
-                  filter(Boolean),
-                  mergeMap((post) => {
-                    return userService.updateUser(post).pipe(
-                      tapResponse({
-                        next: (updatedUser) => {
-                          patchState(store, {
-                            users: store.users().map((u) => (u.id === updatedUser.id ? updatedUser : u)),
-                            loading: false,
-                          });
-                          snackBar.open('User successfully updated!');
-                        },
-                        error: (error: HttpErrorResponse) =>
-                          patchState(store, { error: error.message, loading: false }),
-                      })
-                    );
-                  })
-                );
-            })
-          )
-        ),
-        deleteUser: rxMethod<number>(
-          pipe(
-            tap(() => patchState(store, { loading: true, error: undefined })),
-            exhaustMap((id) => {
-              return userService.deleteUser(id).pipe(
-                tapResponse({
-                  next: () => {
-                    patchState(store, {
-                      users: store.users().filter((user) => user.id !== id),
-                      loading: false,
-                    });
-                    snackBar.open('User successfully deleted!');
-                  },
-                  error: (error: HttpErrorResponse) => patchState(store, { error: error.message, loading: false }),
-                })
-              );
-            })
-          )
-        ),
-        selectUser: (selectedUser: User) => patchState(store, { selectedUser }),
-        clearSelectedUser: () => patchState(store, { selectedUser: undefined }),
-      };
-    }
+          })
+        )
+      ),
+      deleteUser: rxMethod<number>(
+        pipe(
+          tap(() => patchState(store, { loading: true, error: undefined })),
+          exhaustMap((id) => {
+            return userService.deleteUser(id).pipe(
+              tapResponse({
+                next: () => {
+                  patchState(store, {
+                    users: store.users().filter((user) => user.id !== id),
+                    loading: false,
+                  });
+                  snackBar.open('User successfully deleted!');
+                },
+                error: (error: HttpErrorResponse) => patchState(store, { error: error.message, loading: false }),
+              })
+            );
+          })
+        )
+      ),
+      selectUser: (selectedUser: User) => patchState(store, { selectedUser }),
+      clearSelectedUser: () => patchState(store, { selectedUser: undefined }),
+    })
   ),
   withHooks({
     onInit(store) {
