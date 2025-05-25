@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, signal } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
@@ -13,15 +13,17 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatToolbarModule, MatIconModule, DatePipe, MatButton, RouterLink],
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent implements OnDestroy {
   private readonly authService = inject(AuthService);
 
   readonly isLoggedIn = this.authService.isAuthenticated;
 
   readonly timeNow = signal(new Date());
 
-  ngOnInit(): void {
-    setInterval(() => this.timeNow.set(new Date()), 1000);
+  private readonly intervalId = setInterval(() => this.timeNow.set(new Date()), 1000);
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalId);
   }
 
   logout(): void {

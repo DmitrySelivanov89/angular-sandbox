@@ -1,0 +1,15 @@
+<div class="combobox">
+  <input
+    type="text"
+    [value]="searchTerm()"
+    (input)="onInput($event)"
+    (focus)="isOpen.set(true)"
+    placeholder="Select an option" />
+  @if (isOpen()) {
+    <ul>
+      @for (option of filterOptions(); track option) {
+        <li (click)="selectOption(option)">{{ option }}</li>
+      }
+    </ul>
+  }
+</div>

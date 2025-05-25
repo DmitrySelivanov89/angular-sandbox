@@ -30,7 +30,7 @@ export class HabitFormPageComponent {
   }
 
   closeForm() {
-    this.habitService.selectHabit(null);
+    this.habitService.selectHabit(undefined);
     this.router.navigate(['/']);
   }
 }

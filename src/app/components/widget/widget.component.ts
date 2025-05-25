@@ -4,7 +4,7 @@ import { NgTemplateOutlet } from '@angular/common';
 @Component({
   selector: 'app-widget',
   templateUrl: 'widget.component.html',
-  styleUrls: ['widget.component.scss'],
+  styleUrls: ['widget.component.css'],
   imports: [NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

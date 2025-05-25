@@ -1,25 +1,25 @@
 import { Directive, input } from '@angular/core';
 
-interface TableHeaderTemplateContext<TItem extends object> {
-  $implicit: TItem[];
+interface TableHeaderTemplateContext<T extends object> {
+  readonly $implicit: T[];
 }
 
-interface TableRowTemplateContext<TItem extends object> {
-  $implicit: TItem;
+interface TableRowTemplateContext<T extends object> {
+  readonly $implicit: T;
 }
 
 @Directive({
   selector: 'ng-template[appTableHeader]',
 })
-export class TableHeaderTemplateDirective<TItem extends object> {
-  readonly data = input<TItem[] | '' | undefined>(undefined, {
+export class TableHeaderTemplateDirective<T extends object> {
+  readonly data = input<T[] | '' | undefined>(undefined, {
     alias: 'appTableHeader',
   });
 
-  static ngTemplateContextGuard<TContextItem extends object>(
-    dir: TableHeaderTemplateDirective<TContextItem>,
+  static ngTemplateContextGuard<T extends object>(
+    dir: TableHeaderTemplateDirective<T>,
     ctx: unknown
-  ): ctx is TableHeaderTemplateContext<TContextItem> {
+  ): ctx is TableHeaderTemplateContext<T> {
     return true;
   }
 }
@@ -27,15 +27,15 @@ export class TableHeaderTemplateDirective<TItem extends object> {
 @Directive({
   selector: 'ng-template[appTableRow]',
 })
-export class TableRowTemplateDirective<TItem extends object> {
-  readonly data = input<TItem[]>([], {
+export class TableRowTemplateDirective<T extends object> {
+  readonly data = input<T[]>([], {
     alias: 'appTableRow',
   });
 
-  static ngTemplateContextGuard<TContextItem extends object>(
-    dir: TableRowTemplateDirective<TContextItem>,
+  static ngTemplateContextGuard<T extends object>(
+    dir: TableRowTemplateDirective<T>,
     ctx: unknown
-  ): ctx is TableRowTemplateContext<TContextItem> {
+  ): ctx is TableRowTemplateContext<T> {
     return true;
   }
 }

@@ -8,14 +8,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 
 interface HabitForm {
-  name: FormControl<string | null>;
-  description: FormControl<string | null>;
-  frequency: FormControl<string | null>;
+  readonly name: FormControl<string>;
+  readonly description: FormControl<string>;
+  readonly frequency: FormControl<string>;
 }
 
 interface Option {
-  value: string;
-  label: string;
+  readonly value: string;
+  readonly label: string;
 }
 
 @Component({
@@ -27,9 +27,9 @@ interface Option {
 })
 export class HabitFormComponent implements OnInit {
   readonly habitForm: FormGroup<HabitForm> = new FormGroup({
-    name: new FormControl(''),
-    frequency: new FormControl(''),
-    description: new FormControl(''),
+    name: new FormControl('', { nonNullable: true }),
+    frequency: new FormControl('', { nonNullable: true }),
+    description: new FormControl('', { nonNullable: true }),
   });
 
   readonly options: ReadonlyArray<Option> = [
@@ -42,7 +42,7 @@ export class HabitFormComponent implements OnInit {
   readonly emitSubmit = output<Habit>();
   readonly exit = output<void>();
 
-  readonly habit = input<Habit | null>(null);
+  readonly habit = input<Habit | undefined>(undefined);
 
   constructor() {
     effect(() => {

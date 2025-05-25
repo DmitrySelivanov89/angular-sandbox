@@ -4,18 +4,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-all-habits',
   templateUrl: 'all-habits.component.html',
   styleUrls: ['all-habits.component.css'],
-  imports: [MatIconModule, MatCardModule, MatButtonModule, DatePipe],
+  imports: [MatIconModule, MatCardModule, MatButtonModule, DatePipe, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AllHabitsComponent {
   readonly habits = input<Habit[]>();
 
-  readonly add = output<void>();
+  readonly add = output();
 
   readonly edit = output<Habit>();
 

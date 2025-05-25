@@ -1,76 +1,106 @@
 <!-- No templates provided, will use default layout -->
-<app-table [data]="products()">
-  <ng-template appTableHeader>
-    <th>Brand</th>
-    <th>Price</th>
-    <th>Rating</th>
-    <th>DiscountPercentage</th>
-  </ng-template>
+<app-table [data]="users()">
   <ng-template
-    [appTableRow]="products()"
-    let-row>
-    <td>{{ row.brand }}</td>
-    <td>{{ row.price | currency: '$' }}</td>
-    <td>
-      <app-rating
-        disabled="true"
-        [(ngModel)]="row.rating" />
-    </td>
-    <td>{{ `${row.discountPercentage}  %` }}</td>
-  </ng-template>
-</app-table>
-
-<!-- Basic configured template -->
-<app-table [data]="employees()">
-  <ng-template appTableHeader>
-    <th>First</th>
-    <th>Last</th>
-  </ng-template>
-</app-table>
-
-<!-- Highly configured template with conditional elements -->
-<app-table [data]="inventory()">
-  <ng-template appTableHeader>
-    @for (col of columns; track $index) {
+    let-header
+    [appTableHeader]="users()">
+    @for (col of ['Name', 'Phone', 'Website', '']; track col) {
       <th>{{ col }}</th>
     }
-    @for (col of emptyColumns; track $index) {
-      <th></th>
-    }
   </ng-template>
+
   <ng-template
-    [appTableRow]="inventory()"
-    let-row>
-    <td>{{ row.name }}</td>
-    <td>{{ row.price | currency: row.currency }}</td>
-    <td>{{ row.supplier }}</td>
+    [appTableRow]="users()"
+    let-user>
+    <td>{{ user.name }}</td>
+    <td>{{ user.phone }}</td>
+    <td>{{ user.website }}</td>
     <td>
-      @if (row.inStock > 0) {
-        <button
-          mat-raised-button
-          (click)="purchaseItem(row.plu)">
-          Buy now
-        </button>
-      }
+      <button
+        (click)="updateUser(user)"
+        mat-icon-button>
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        (click)="deleteUser(user.id)"
+        mat-icon-button>
+        <mat-icon>delete</mat-icon>
+      </button>
     </td>
-    <td>
-      @if (row.inStock > 0) {
-        <button
-          mat-raised-button
-          color="warn"
-          (click)="deleteItem(row.id)">
-          Delete
-        </button>
-      }
-    </td>
-    <!--    <td>-->
-    <!--      <app-rating [(ngModel)]="row.rating"/>-->
-    <!--    </td>-->
-    <td [formGroup]="inventoryForm">
-      <app-rating formControlName="{{ row.id }}" />
-    </td>
-    <!--    <td>-->
-    <!--      <app-rating [(value)]="row.rating"/>-->
-    <!--    </td>-->
   </ng-template>
 </app-table>
+
+<!--<app-table [data]="products()">-->
+<!--  <ng-template appTableHeader>-->
+<!--    <th>Brand</th>-->
+<!--    <th>Price</th>-->
+<!--    <th>Rating</th>-->
+<!--    <th>DiscountPercentage</th>-->
+<!--  </ng-template>-->
+<!--  <ng-template-->
+<!--    [appTableRow]="products()"-->
+<!--    let-row>-->
+<!--    <td>{{ row.brand }}</td>-->
+<!--    <td>{{ row.price | currency: '$' }}</td>-->
+<!--    <td>-->
+<!--      <app-rating-->
+<!--        disabled="true"-->
+<!--        [(ngModel)]="row.rating" />-->
+<!--    </td>-->
+<!--    <td>{{ `${row.discountPercentage}  %` }}</td>-->
+<!--  </ng-template>-->
+<!--</app-table>-->
+
+<!-- Basic configured template -->
+<!--<app-table [data]="employees()">-->
+<!--  <ng-template appTableHeader>-->
+<!--    <th>First</th>-->
+<!--    <th>Last</th>-->
+<!--  </ng-template>-->
+<!--</app-table>-->
+
+<!-- Highly configured template with conditional elements -->
+<!--<app-table [data]="inventory()">-->
+<!--  <ng-template appTableHeader>-->
+<!--    @for (col of columns; track $index) {-->
+<!--      <th>{{ col }}</th>-->
+<!--    }-->
+<!--    @for (col of emptyColumns; track $index) {-->
+<!--      <th></th>-->
+<!--    }-->
+<!--  </ng-template>-->
+<!--  <ng-template-->
+<!--    [appTableRow]="inventory()"-->
+<!--    let-row>-->
+<!--    <td>{{ row.name }}</td>-->
+<!--    <td>{{ row.price | currency: row.currency }}</td>-->
+<!--    <td>{{ row.supplier }}</td>-->
+<!--    <td>-->
+<!--      @if (row.inStock > 0) {-->
+<!--        <button-->
+<!--          mat-raised-button-->
+<!--          (click)="purchaseItem(row.plu)">-->
+<!--          Buy now-->
+<!--        </button>-->
+<!--      }-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      @if (row.inStock > 0) {-->
+<!--        <button-->
+<!--          mat-raised-button-->
+<!--          color="warn"-->
+<!--          (click)="deleteItem(row.id)">-->
+<!--          Delete-->
+<!--        </button>-->
+<!--      }-->
+<!--    </td>-->
+<!--    &lt;!&ndash;    <td>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <app-rating [(ngModel)]="row.rating"/>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </td>&ndash;&gt;-->
+<!--    <td [formGroup]="inventoryForm">-->
+<!--      <app-rating formControlName="{{ row.id }}" />-->
+<!--    </td>-->
+<!--    &lt;!&ndash;    <td>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <app-rating [(value)]="row.rating"/>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </td>&ndash;&gt;-->
+<!--  </ng-template>-->
+<!--</app-table>-->

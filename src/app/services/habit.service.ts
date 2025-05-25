@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { Habit } from '../models/habit';
 
 @Injectable({ providedIn: 'root' })
@@ -13,9 +13,11 @@ export class HabitService {
     },
   ]);
 
-  private readonly selectedHabitSignal = signal<Habit | null>(null);
+  private readonly selectedHabitSignal = signal<Habit | undefined>(undefined);
 
-  readonly selectedHabit = this.selectedHabitSignal.asReadonly();
+  readonly selectedHabit = computed(() => {
+    return this.habitsSignal().find((habit) => habit.id === this.selectedHabitSignal()?.id);
+  });
 
   readonly habits = this.habitsSignal.asReadonly();
 
@@ -38,7 +40,7 @@ export class HabitService {
     ]);
   }
 
-  selectHabit(habit: Habit | null) {
+  selectHabit(habit: Habit | undefined) {
     this.selectedHabitSignal.set(habit);
   }
 }
