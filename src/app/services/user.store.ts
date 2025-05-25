@@ -30,7 +30,7 @@ export const UserStore = signalStore(
     (store, userService = inject(UserService), snackBar = inject(MatSnackBar), dialog = inject(MatDialog)) => ({
       loadUsers: rxMethod<void>(
         pipe(
-          tap(() => patchState(store, { loading: true, error: undefined })),
+          tap(() => patchState(store, { loading: true })),
           switchMap(() => {
             return userService.getUsers().pipe(
               tapResponse({
@@ -43,7 +43,7 @@ export const UserStore = signalStore(
       ),
       loadUser: rxMethod<number>(
         pipe(
-          tap(() => patchState(store, { loading: true, error: undefined })),
+          tap(() => patchState(store, { loading: true })),
           switchMap((id) => {
             return userService.getUser(id).pipe(
               tapResponse({
@@ -56,7 +56,7 @@ export const UserStore = signalStore(
       ),
       createUser: rxMethod<Omit<User, 'id'>>(
         pipe(
-          tap(() => patchState(store, { loading: true, error: undefined })),
+          tap(() => patchState(store, { loading: true })),
           exhaustMap((post) => {
             return userService.createUser(post).pipe(
               tapResponse({
@@ -82,6 +82,7 @@ export const UserStore = signalStore(
               .afterClosed()
               .pipe(
                 filter(Boolean),
+                tap(() => patchState(store, { loading: true })),
                 mergeMap((post) => {
                   return userService.updateUser(post).pipe(
                     tapResponse({
@@ -102,7 +103,7 @@ export const UserStore = signalStore(
       ),
       deleteUser: rxMethod<number>(
         pipe(
-          tap(() => patchState(store, { loading: true, error: undefined })),
+          tap(() => patchState(store, { loading: true })),
           exhaustMap((id) => {
             return userService.deleteUser(id).pipe(
               tapResponse({
