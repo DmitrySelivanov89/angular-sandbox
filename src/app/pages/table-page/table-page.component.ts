@@ -12,9 +12,6 @@ import { UserStore } from '../../services/user.store';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { User } from '../../services/user';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserCardComponent, UserCardDialogData } from '../../components/user-card/user-card.component';
 
 interface InventoryFormGroup {
   readonly [p: string]: FormControl<number>;
@@ -39,8 +36,6 @@ export class TablePageComponent implements OnInit {
   private readonly employeeService = inject(EmployeeService);
   private readonly inventoryService = inject(InventoryService);
   private readonly store = inject(UserStore);
-  private readonly dialog = inject(MatDialog);
-  private snackBar = inject(MatSnackBar);
 
   // private readonly productService = inject(ProductService);
 
@@ -98,14 +93,6 @@ export class TablePageComponent implements OnInit {
   }
 
   updateUser(user: User) {
-    console.log('Opening dialog with user:', user);
-    this.dialog
-      .open(UserCardComponent, {
-        data: { user } as UserCardDialogData,
-      })
-      .afterClosed()
-      .subscribe((updatedUser) => {
-        this.store.updateUser(updatedUser);
-      });
+    this.store.updateUser(user);
   }
 }
