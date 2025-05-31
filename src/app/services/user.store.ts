@@ -5,7 +5,7 @@ import { pipe, switchMap, tap } from 'rxjs';
 import { tapResponse } from '@ngrx/operators';
 import { User } from './user';
 import { UserService } from './user.service';
-import { HttpErrorResponse } from '@angular/common/module.d-CnjH8Dlt';
+import { HttpErrorResponse } from '@angular/common/http';
 
 type UsersState = {
   readonly users: User[];
@@ -27,21 +27,27 @@ export const UserStore = signalStore(
     loadUsers: rxMethod<void>(
       pipe(
         tap(() => patchState(store, { loading: true })),
-        switchMap(() => userService.getUsers()),
-        tapResponse({
-          next: (users) => patchState(store, { users, loading: false }),
-          error: (error: HttpErrorResponse) => patchState(store, { error: error.message, loading: false }),
-        })
+        switchMap(() =>
+          userService.getUsers().pipe(
+            tapResponse({
+              next: (users) => patchState(store, { users, loading: false }),
+              error: (error: HttpErrorResponse) => patchState(store, { error: error.message, loading: false }),
+            })
+          )
+        )
       )
     ),
     loadUser: rxMethod<number>(
       pipe(
         tap(() => patchState(store, { loading: true })),
-        switchMap((id) => userService.getUser(id)),
-        tapResponse({
-          next: (selectedUser) => patchState(store, { selectedUser, loading: false }),
-          error: (error: HttpErrorResponse) => patchState(store, { error: error.message, loading: false }),
-        })
+        switchMap((id) =>
+          userService.getUser(id).pipe(
+            tapResponse({
+              next: (selectedUser) => patchState(store, { selectedUser, loading: false }),
+              error: (error: HttpErrorResponse) => patchState(store, { error: error.message, loading: false }),
+            })
+          )
+        )
       )
     ),
     createUser(newUser: Omit<User, 'id'>) {
